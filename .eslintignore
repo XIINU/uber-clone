@@ -1,2 +1,17 @@
-/.expo
-node_modules
+node_modules/
+.expo/
+dist/
+npm-debug.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+web-build/
+
+expo-env.d.ts
+# @end expo-cli.env
+
+# env
+.env
