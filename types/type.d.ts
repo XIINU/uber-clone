@@ -1,7 +1,7 @@
 import { TextInputProps, TouchableOpacityProps } from "react-native";
 
 declare interface Driver {
-  driver_id: number;
+  id: number;
   first_name: string;
   last_name: string;
   profile_image_url: string;
@@ -11,9 +11,9 @@ declare interface Driver {
 }
 
 declare interface MarkerData {
+  id: number;
   latitude: number;
   longitude: number;
-  id: number;
   title: string;
   profile_image_url: string;
   car_image_url: string;

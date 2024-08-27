@@ -1,9 +1,21 @@
 import { useUser } from "@clerk/clerk-expo";
-import { FlatList, View, Text, Image } from "react-native";
+import * as Location from "expo-location";
+import {
+  FlatList,
+  View,
+  Text,
+  Image,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import RideCard from "@/components/RideCard";
-import { isLoaded } from "expo-font";
-import { images } from "@/constants";
+import { icons, images } from "@/constants";
+import GoogleTextInput from "@/components/GoogleTextInput";
+import Map from "@/components/Map";
+import { useLocationStore } from "@/store";
+import { useEffect, useState } from "react";
+import { router } from "expo-router";
 
 const recentRides = [
   {
@@ -113,13 +125,55 @@ const recentRides = [
 ];
 
 export default function Page() {
+  const { setUserLocation, setDestinationLocation } = useLocationStore();
   const { user } = useUser();
-  const loading = false;
+  const loading = true;
+
+  const [hasPermissions, setHasPermissions] = useState(false);
+
+  const handleSignOut = () => {};
+  const handleDestinationPress = (location: {
+    longitude: number;
+    latitude: number;
+    address: string;
+  }) => {
+    setDestinationLocation(location);
+
+    router.push("/(root)/find-ride");
+  };
+
+  useEffect(() => {
+    const requestLocation = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status !== "granted") {
+        setHasPermissions(false);
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync();
+
+      const address = await Location.reverseGeocodeAsync({
+        longitude: location.coords?.longitude!,
+        latitude: location.coords?.latitude!,
+      });
+
+      setUserLocation({
+        latitude: 37.78825,
+        longitude: -122.4324,
+        // latitude: location.coords.latitude,
+        // longitude: location.coords.longitude,
+        address: `${address[0].name}, ${address[0].region}`,
+      });
+    };
+
+    requestLocation();
+  }, []);
 
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
-        // data={recentRides?.slice(0, 5)}
+        data={recentRides?.slice(0, 5)}
         renderItem={({ item }) => <RideCard ride={item} />}
         showsVerticalScrollIndicator={false}
         className="px-3"
@@ -142,13 +196,47 @@ export default function Page() {
                 </Text>
               </>
             ) : (
-              <Text>Loading</Text>
+              <ActivityIndicator size="large" color="#000" />
             )}
           </View>
+        )}
+        ListHeaderComponent={() => (
+          <>
+            <View className="flex flex-row items-center justify-between my-5">
+              <Text className="text-lg font-JakartaSemiBold">
+                Welcome,{" "}
+                {user?.firstName || user?.emailAddresses[0].emailAddress} 👋
+              </Text>
+              <TouchableOpacity
+                onPress={handleSignOut}
+                className="justify-center items-center w-10 h-10 rounded-full bg-white"
+              >
+                <Image source={icons.out} className="w-5 h-5" />
+              </TouchableOpacity>
+            </View>
+
+            {/* Google text input */}
+            <GoogleTextInput
+              icon={icons.search}
+              containerStyle="bg-white shadow-xl shadow-neutral-300"
+              handlePress={handleDestinationPress}
+            />
+            <>
+              <Text className="text-xl font-JakartaSemiBold mt-5 mb-3">
+                Your Current Location
+              </Text>
+              <View className="flex flex-row items-center bg-transparent h-[300px]">
+                <Map />
+              </View>
+            </>
+            <Text className="text-xl font-JakartaSemiBold mt-5 mb-3">
+              Recent Rides
+            </Text>
+          </>
         )}
       />
     </SafeAreaView>
   );
 }
 
-//2:48 YT
+//3.48 YT
