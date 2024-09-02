@@ -42,7 +42,7 @@ const TabLayout = () => {
             paddingBottom: 0,
             overflow: "hidden",
             marginHorizontal: 80,
-            marginBottom: 60,
+            marginBottom: 30,
             height: 78,
             display: "flex",
             justifyContent: "space-between",

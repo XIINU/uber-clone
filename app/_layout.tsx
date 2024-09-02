@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { LogBox } from "react-native";
 import { tokenCache } from "@/lib/auth";
+import { StatusBar } from "expo-status-bar";
 
 //Prevent the splash screen from auto-hiding before loading is complete
 SplashScreen.preventAutoHideAsync();
@@ -63,6 +64,7 @@ export default function RootLayout() {
             }}
           />
         </Stack>
+        <StatusBar style="dark" />
       </ClerkLoaded>
     </ClerkProvider>
   );
