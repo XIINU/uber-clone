@@ -20,4 +20,5 @@ expo-env.d.ts
 # @end expo-cli
 
 .env
-#CLERK_API_KEY
+
+android/

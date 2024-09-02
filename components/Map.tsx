@@ -71,6 +71,9 @@ const Map = () => {
   });
 
   useEffect(() => {
+    //TODO: Remove
+    setDrivers(drivers);
+
     if (Array.isArray(drivers)) {
       if (!userLatitude || !userLongitude) return;
 
@@ -89,7 +92,7 @@ const Map = () => {
       provider={PROVIDER_DEFAULT}
       className="w-full h-full rounded-2xl"
       tintColor="black"
-      mapType="mutedStandard"
+      mapType="standard"
       showsPointsOfInterest={false}
       initialRegion={region}
       //   showsUserLocation={true}

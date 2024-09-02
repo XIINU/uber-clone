@@ -218,7 +218,7 @@ export default function Page() {
             {/* Google text input */}
             <GoogleTextInput
               icon={icons.search}
-              containerStyle="bg-white shadow-xl shadow-neutral-300"
+              containerStyle="bg-white shadow-xl shadow-neutral-500"
               handlePress={handleDestinationPress}
             />
             <>

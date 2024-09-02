@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.xiinu.uber"
     },
     "web": {
       "bundler": "metro",
@@ -30,7 +31,7 @@
       [
         "expo-router",
         {
-          "origin": "https://uber.com/"
+          "origin": "https://uber.dev/"
         }
       ]
     ],
