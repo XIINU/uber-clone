@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import * as Location from "expo-location";
 import {
@@ -27,6 +28,8 @@ export default function Page() {
   const { data: recentRides, loading } = useFetch<Ride[]>(
     `/(api)/ride/${user?.id}`
   );
+
+  // console.log(recentRides);
 
   const [hasPermissions, setHasPermissions] = useState<boolean>(false);
 
@@ -60,20 +63,19 @@ export default function Page() {
       });
 
       setUserLocation({
-        latitude: 37.78825,
-        longitude: -122.4324,
-        // latitude: location.coords?.latitude,
-        // longitude: location.coords?.longitude,
+        latitude: location.coords?.latitude,
+        longitude: location.coords?.longitude,
         address: `${address[0].name}, ${address[0].region}`,
       });
     })();
   }, []);
 
   return (
-    <SafeAreaView className="bg-general-500">
+    <SafeAreaView className="bg-general-500 h-full">
       <FlatList
         data={recentRides?.slice(0, 5)}
         renderItem={({ item }) => <RideCard ride={item} />}
+        keyExtractor={(index) => index.toString()}
         showsVerticalScrollIndicator={false}
         className="px-3"
         keyboardShouldPersistTaps="handled"
@@ -115,11 +117,13 @@ export default function Page() {
             </View>
 
             {/* Google text input */}
+
             <GoogleTextInput
               icon={icons.search}
               containerStyle="bg-white shadow-xl shadow-neutral-500"
               handlePress={handleDestinationPress}
             />
+
             <>
               <Text className="text-xl font-JakartaSemiBold mt-5 mb-3">
                 Your Current Location

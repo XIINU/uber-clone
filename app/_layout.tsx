@@ -8,7 +8,6 @@ import { LogBox } from "react-native";
 import { tokenCache } from "@/lib/auth";
 import { StatusBar } from "expo-status-bar";
 
-//Prevent the splash screen from auto-hiding before loading is complete
 SplashScreen.preventAutoHideAsync();
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;

@@ -8,7 +8,6 @@ import { useDriverStore, useLocationStore } from "@/store";
 import Payment from "@/components/Payment";
 
 import { StripeProvider } from "@stripe/stripe-react-native";
-import { useEffect, useState } from "react";
 
 const BookRide = () => {
   const { user } = useUser();
@@ -97,7 +96,7 @@ const BookRide = () => {
             fullName={user?.fullName!}
             email={user?.emailAddresses[0].emailAddress!}
             amount={driverDetails?.price!}
-            driverId={driverDetails?.time!}
+            driverId={driverDetails?.id!}
             rideTime={driverDetails?.time!}
           />
         </>

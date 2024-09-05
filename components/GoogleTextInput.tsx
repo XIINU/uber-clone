@@ -20,6 +20,7 @@ const GoogleTextInput = ({
       <GooglePlacesAutocomplete
         fetchDetails={true}
         placeholder="Where do you want to go?"
+        debounce={200}
         styles={{
           textInputContainer: {
             alignItems: "center",

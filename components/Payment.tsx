@@ -35,7 +35,7 @@ const Payment = ({
       intentConfiguration: {
         mode: {
           amount: parseInt(amount) * 100,
-          currencyCode: "USD",
+          currencyCode: "INR",
         },
         confirmHandler: async (paymentMethod, _, intentCreationCallback) => {
           const { paymentIntent, customer } = await fetchAPI(
@@ -83,7 +83,7 @@ const Payment = ({
                   ride_time: rideTime.toFixed(0),
                   fare_prices: parseInt(amount) * 100,
                   payment_status: "paid",
-                  driverId: driverId,
+                  driver_id: driverId,
                   user_id: userId,
                 }),
               });

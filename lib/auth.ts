@@ -37,7 +37,7 @@ export const googleOAuth = async (startOAuthFlow: any) => {
 
     if (createdSessionId) {
       if (setActive) {
-        await setActive!({ session: createdSessionId });
+        await setActive({ session: createdSessionId });
 
         if (signUp.createdUserId) {
           await fetchAPI("/(api)/user", {

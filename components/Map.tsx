@@ -97,7 +97,7 @@ const Map = () => {
       mapType="standard"
       showsPointsOfInterest={false}
       initialRegion={region}
-      //   showsUserLocation={true}
+      showsUserLocation={true}
       userInterfaceStyle="light"
     >
       {markers.map((marker) => (
